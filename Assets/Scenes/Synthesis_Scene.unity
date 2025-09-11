@@ -1103,7 +1103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventorySlotPrefab: {fileID: 589982255914723861, guid: 63f0db0c652094659bad118194b5bbe7, type: 3}
   contentPanel: {fileID: 1284692743}
-  maxSlots: 100
+  maxSlots: 50
 --- !u!114 &1496665884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1224,7 +1224,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2071150086}
   m_HandleRect: {fileID: 2071150085}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

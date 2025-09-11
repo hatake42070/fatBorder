@@ -1,5 +1,6 @@
 using UnityEngine;
 
+public enum MonsterType { Fire, Water, Grass, Other } //炎、水、草、その他 これらは仮
 // この行を追加することで、Unityのメニューからデータアセットを作成できるようになる
 [CreateAssetMenu(fileName = "NewMonsterData", menuName = "Data/Monster Data")]
 public class MonsterData : ScriptableObject
@@ -12,6 +13,8 @@ public class MonsterData : ScriptableObject
     public int maxHp;
     public int attackPower;
     // public SkillData specialSkill; // スキルなどもデータとして紐付けられる
+    public MonsterType type; //タイプ
+    public int rarity; // 1~5
 
     [Header("UI表示用")]
     [TextArea]
