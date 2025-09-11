@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5829af46a5e984fd38348f4efc21f4cf, type: 3}
-  m_Name: NewSynthesisRecipe
+  m_Script: {fileID: 11500000, guid: 85887cf8f1f9a4fddb138bb6bb54def1, type: 3}
+  m_Name: test2
   m_EditorClassIdentifier: 
-  ingredients:
-  - {fileID: 11400000, guid: 8bf1a3e386c7b4f16899b1805c1a17b3, type: 2}
-  resultingMonster: {fileID: 0}
+  monsterID: 0
+  monsterName: 
+  maxHp: 0
+  attackPower: 0
+  description: 
+  icon: {fileID: 0}
