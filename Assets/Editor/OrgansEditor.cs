@@ -15,6 +15,8 @@ public class OrgansEditor : EditorWindow
         // 名前でソート
         AssetName_Ascending, // 昇順
         AssetName_Descending, // 降順
+        AssetName_Ascending,
+        AssetName_Descending,
         // 臓器IDでソート
         OrganID_Ascending,
         OrganID_Descending,
@@ -63,6 +65,9 @@ public class OrgansEditor : EditorWindow
         // ソートしたリスト
         var sortedOrgans = SortOrgans(filteredOrgans);
         // 削除するアセットを保持
+        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+        var filteredOrgans = string.IsNullOrEmpty(searchQuery) ? allOrgans : allOrgans.Where(r => r.name.ToLower().Contains(searchQuery.ToLower())).ToList();
+        var sortedOrgans = SortOrgans(filteredOrgans);
         OrganData organToDelete = null;
 
         foreach (var organ in sortedOrgans)
@@ -77,6 +82,7 @@ public class OrgansEditor : EditorWindow
             organ.category = (OrganCategory)EditorGUILayout.EnumPopup("カテゴリー", organ.category);
             organ.icon = (Sprite)EditorGUILayout.ObjectField("アイコン", organ.icon, typeof(Sprite), false, GUILayout.Height(64));
             // 変更があった時のみデータを保存
+            
             if (EditorGUI.EndChangeCheck())
             {
                 // セットが変更されたことをUnityに通知
