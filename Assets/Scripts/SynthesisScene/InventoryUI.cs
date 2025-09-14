@@ -28,6 +28,7 @@ public class InventoryUI : MonoBehaviour
         // このUIが非表示になったら、放送を聞くのをやめる（メモリリーク防止）
         PlayerData.OnInventoryChanged -= UpdateDisplay;
     }
+    private List<InventorySlotUI> slotUIs = new List<InventorySlotUI>();
 
     void Start()
     {
@@ -39,6 +40,7 @@ public class InventoryUI : MonoBehaviour
             InventorySlotUI slotUI = slotGO.GetComponent<InventorySlotUI>();
             slotUI.ClearSlot(); // スロットを空の状態にする
             SlotUIs.Add(slotUI);
+            slotUIs.Add(slotUI);
         }
 
         // インベントリの初期表示を更新
@@ -56,6 +58,12 @@ public class InventoryUI : MonoBehaviour
 
         // 全スロットをループして、表示を更新する
         for (int i = 0; i < SlotUIs.Count; i++)
+        // InventoryManagerから最新の所持品リストを取得
+        var ownedOrgans = InventoryManager.Instance.ownedOrgans;
+        List<OrganData> ownedOrgansList = ownedOrgans.Keys.ToList();
+
+        // 全スロットをループして、表示を更新する
+        for (int i = 0; i < slotUIs.Count; i++)
         {
             // 表示すべきアイテムがまだある場合
             if (i < ownedOrgansList.Count)
@@ -63,11 +71,13 @@ public class InventoryUI : MonoBehaviour
                 OrganData organ = ownedOrgansList[i];
                 int count = ownedOrgans[organ];
                 SlotUIs[i].Setup(organ, count); // スロットにデータを設定
+                slotUIs[i].Setup(organ, count); // スロットにデータを設定
             }
             // 表示すべきアイテムがもうない（空のスロット）の場合
             else
             {
                 SlotUIs[i].ClearSlot(); // スロットを空にする
+                slotUIs[i].ClearSlot(); // スロットを空にする
             }
         }
     }

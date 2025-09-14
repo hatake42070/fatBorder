@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+<<<<<<< HEAD
 using System;
 //using TMPro;
 
@@ -7,11 +8,16 @@ using System;
 /// インベントリスロット一つ分のUI表示と、クリックイベントの発行を担当するクラス。
 /// このスクリプトはインベントリスロットのプレハブにアタッチする。
 /// </summary>
+=======
+//using TMPro;
+
+>>>>>>> f29f7db ([clean]フォルダ構成の変更)
 public class InventorySlotUI : MonoBehaviour
 {
     public Image icon;
     //public TextMeshProUGUI countText;
     public Text countText;
+<<<<<<< HEAD
     private Button button;
     public Image background;
     private bool isSelected = false; // 自分が選択されているかを記憶する
@@ -69,11 +75,21 @@ public class InventorySlotUI : MonoBehaviour
         // 新しくセットアップされた時は、必ず非選択状態に戻す
         isSelected = false; 
         SetSelected(false);
+=======
+    
+    // データを受け取ってスロットの見た目を設定する
+    public void Setup(OrganData organ, int count)
+    {
+        icon.enabled = true;
+        icon.sprite = organ.icon;
+        countText.text = count.ToString();
+>>>>>>> f29f7db ([clean]フォルダ構成の変更)
     }
 
     // スロットを空の状態にする
     public void ClearSlot()
     {
+<<<<<<< HEAD
         assignedOrganData = null;
         icon.enabled = false; // アイコンを非表示にする
         countText.text = "";
@@ -81,4 +97,9 @@ public class InventorySlotUI : MonoBehaviour
         SetSelected(false);
     }
 
+=======
+        icon.enabled = false; // アイコンを非表示にする
+        countText.text = "";
+    }
+>>>>>>> f29f7db ([clean]フォルダ構成の変更)
 }
