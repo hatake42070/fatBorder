@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce8e571a05d34642aa2d536ae7bb6fc, type: 3}
   m_Name: Brain
   m_EditorClassIdentifier: 
-  organID: 0
+  organID: 1
   organName: 
   category: 0
-  rarity: 0
+  rarity: 1
   icon: {fileID: -3395856866206217572, guid: 3c5ce607bdd3a4d0590bcbd76aaa90f0, type: 3}
   description: 
   price: 0
