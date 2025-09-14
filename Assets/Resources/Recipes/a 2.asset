@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce8e571a05d34642aa2d536ae7bb6fc, type: 3}
-  m_Name: PinkHeart
+  m_Script: {fileID: 11500000, guid: 5829af46a5e984fd38348f4efc21f4cf, type: 3}
+  m_Name: a 2
   m_EditorClassIdentifier: 
-  organID: 0
-  organName: 
-  category: 0
-  rarity: 0
-  icon: {fileID: -2610975633400427606, guid: 8c1ff8771d15e40e0bdc6f370de34747, type: 3}
-  description: 
-  price: 0
+  ingredients:
+  - {fileID: 11400000, guid: 8bf1a3e386c7b4f16899b1805c1a17b3, type: 2}
+  resultingMonster: {fileID: 11400000, guid: 1b8c8846bd2804c9ba3b8360c35c4569, type: 2}
