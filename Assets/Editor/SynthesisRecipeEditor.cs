@@ -21,13 +21,15 @@ public class SynthesisRecipeEditor : EditorWindow
     // 並び替えの種類を定義するenum
     private enum SortType
     {
-        AssetName_Asc, // アセット名の昇順
-        AssetName_Desc, // アセット名の降順
-        IngredientCount_Asc, // 素材数の昇順
-        IngredientCount_Desc  // 素材数の降順
+        // アセット名でソート
+        AssetName_Ascending, // 昇順
+        AssetName_Descending, // 降順
+        // 素材数でソート
+        IngredientCount_Ascending, // 昇順
+        IngredientCount_Descending  // 降順
     }
     // 現在選択されている並び替え方法を保持する変数
-    private SortType currentSortType = SortType.AssetName_Asc;
+    private SortType currentSortType = SortType.AssetName_Ascending;
     
     [MenuItem("Tools/合成レシピエディタ")]
     public static void ShowWindow()
@@ -51,27 +53,28 @@ public class SynthesisRecipeEditor : EditorWindow
 
         // --- 検索機能 ---
         searchQuery = EditorGUILayout.TextField("レシピ名で検索", searchQuery);
-        // searchQueryが空でなければ、名前に検索文字列を含むレシピだけを抽出
+        // 検索でフィルタリングされたリスト
         var filteredRecipes = string.IsNullOrEmpty(searchQuery) ? allRecipes : allRecipes.Where(r => r.name.ToLower().Contains(searchQuery.ToLower())).ToList();
 
         // --- ソート機能 ---
         // enumを使ったドロップダウンメニューを表示
         currentSortType = (SortType)EditorGUILayout.EnumPopup("並び替え", currentSortType);
 
-        var sortedRecipes = new List<SynthesisRecipe>(filteredRecipes); // 元のリストをコピー
+        // フィルタリングようのリストを生成
+        var sortedRecipes = new List<SynthesisRecipe>(filteredRecipes);
 
         switch (currentSortType)
         {
-            case SortType.AssetName_Asc:
+            case SortType.AssetName_Ascending:
                 sortedRecipes = sortedRecipes.OrderBy(r => r.name).ToList();
                 break;
-            case SortType.AssetName_Desc:
+            case SortType.AssetName_Descending:
                 sortedRecipes = sortedRecipes.OrderByDescending(r => r.name).ToList();
                 break;
-            case SortType.IngredientCount_Asc:
+            case SortType.IngredientCount_Ascending:
                 sortedRecipes = sortedRecipes.OrderBy(r => r.ingredients.Count).ToList();
                 break;
-            case SortType.IngredientCount_Desc:
+            case SortType.IngredientCount_Descending:
                 sortedRecipes = sortedRecipes.OrderByDescending(r => r.ingredients.Count).ToList();
                 break;
         }

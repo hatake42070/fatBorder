@@ -24,7 +24,7 @@ public static class EditorUtils
     }
 
     // assetを削除する
-    public static void DeleatAsset(ScriptableObject asset)
+    public static void DeleteAsset(ScriptableObject asset)
     {
         if (asset == null) return;
         string path = AssetDatabase.GetAssetPath(asset);
