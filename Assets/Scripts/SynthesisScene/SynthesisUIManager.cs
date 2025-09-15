@@ -12,6 +12,9 @@ public class SynthesisUIManager : MonoBehaviour
     public Button synthesisButton;
     public Image resultMonsterImage;
 
+    [Header("インベントリUIへの参照")]
+    public InventoryUI inventoryUI; // Inspectorでインベントリパネルを設定
+
     // 現在選択されている素材リスト
     private List<OrganData> selectedIngredients = new List<OrganData>();
     // 合成ロジック本体
@@ -48,7 +51,7 @@ public class SynthesisUIManager : MonoBehaviour
             selectedIngredients.Remove(clickedOrgan);
         }
         // もし、選択リストに空きがあれば（3つ未満）、リストに追加
-        else if (selectedIngredients.Count < 3)
+        else if (selectedIngredients.Count < synthesisSlots.Count) // 3ではなくリストの数で判定
         {
             selectedIngredients.Add(clickedOrgan);
         }
@@ -77,7 +80,6 @@ public class SynthesisUIManager : MonoBehaviour
         currentRecipeResult = synthesizer.Synthesize(selectedIngredients);
         
         // 3. 合成ボタンの有効/無効を切り替え
-        // レシピが見つかった場合のみ、ボタンを押せるようにする
         synthesisButton.interactable = (currentRecipeResult != null);
         
         // 4. 結果表示を更新（プレビュー）
@@ -97,14 +99,29 @@ public class SynthesisUIManager : MonoBehaviour
     {
         if (currentRecipeResult == null) return;
 
-        // ここに、実際にアイテムを消費してモンスターを入手する処理を書く
+        // --- 実際にアイテムを消費してモンスターを入手する処理 ---
+        
         // 1. InventoryManagerからselectedIngredientsを消費
-        // 2. PlayerDataにcurrentRecipeResultを追加
+        foreach(var ingredient in selectedIngredients)
+        {
+            // 今回は1つずつ消費する想定
+            // InventoryManagerにRemoveOrganのような関数を作ると、より綺麗になる
+            InventoryManager.Instance.ownedOrgans[ingredient]--;
+            if(InventoryManager.Instance.ownedOrgans[ingredient] <= 0)
+            {
+                InventoryManager.Instance.ownedOrgans.Remove(ingredient);
+            }
+        }
+
+        // 2. PlayerDataにcurrentRecipeResultを追加（PlayerDataにAddMonster関数を作ると良い）
+        // PlayerData.Instance.unlockedMonsters.Add(currentRecipeResult);
+
         // 3. InventoryUIの表示を更新
+        inventoryUI.UpdateDisplay();
 
         Debug.Log(currentRecipeResult.monsterName + " を生成しました！");
 
-        // 合成後、選択をクリア
+        // 合成後、選択をクリアしてUIを再更新
         selectedIngredients.Clear();
         UpdateSynthesisUI();
     }
