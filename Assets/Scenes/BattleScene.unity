@@ -310,6 +310,9 @@ RectTransform:
   - {fileID: 1251340924}
   - {fileID: 1197276884}
   - {fileID: 241540751}
+  - {fileID: 879788063}
+  - {fileID: 1343168818}
+  - {fileID: 2045534210}
   m_Father: {fileID: 1303532522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -844,7 +847,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1197276881}
   m_GameObject: {fileID: 879788062}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1075,6 +1078,9 @@ MonoBehaviour:
   _gauge: {fileID: 2045534209}
   _graceGauge: {fileID: 1343168817}
   _HP: 100
+  gauge: {fileID: 2045534209}
+  graceGauge: {fileID: 1343168817}
+  maxHP: 100
 --- !u!1 &1343168817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,12 +1106,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343168817}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1303532522}
+  m_Father: {fileID: 273680068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1266,6 +1272,7 @@ GameObject:
   - component: {fileID: 1401231230}
   m_Layer: 0
   m_Name: GameManager
+  m_Name: BattleManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1290,6 +1297,12 @@ MonoBehaviour:
   playerHPText: {fileID: 0}
   enemyHPText: {fileID: 0}
   logText: {fileID: 0}
+  playerHP: 100
+  enemyHP: 50
+  playerHpBar: {fileID: 0}
+  enemyHpBar: {fileID: 0}
+  messageText: {fileID: 0}
+  commandPanel: {fileID: 0}
 --- !u!4 &1401231231
 Transform:
   m_ObjectHideFlags: 0
@@ -1306,6 +1319,7 @@ Transform:
   - {fileID: 2054367236}
   - {fileID: 667891638}
   - {fileID: 93932252}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1416391868
@@ -1550,7 +1564,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1303532523}
-        m_TargetAssemblyTypeName: GaugeController, Assembly-CSharp
+        m_TargetAssemblyTypeName: HpGaugeController, Assembly-CSharp
         m_MethodName: BeInjured
         m_Mode: 3
         m_Arguments:
@@ -1711,7 +1725,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1759214109}
   m_GameObject: {fileID: 2045534209}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1726,7 +1740,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1759214111
   m_Children: []
-  m_Father: {fileID: 1303532522}
+  m_Father: {fileID: 273680068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
