@@ -3,6 +3,10 @@ using UnityEngine.UI;
 using System;
 //using TMPro;
 
+/// <summary>
+/// インベントリスロット一つ分のUI表示と、クリックイベントの発行を担当するクラス。
+/// このスクリプトはインベントリスロットのプレハブにアタッチする。
+/// </summary>
 public class InventorySlotUI : MonoBehaviour
 {
     public Image icon;
@@ -10,7 +14,8 @@ public class InventorySlotUI : MonoBehaviour
     public Text countText;
     private Button button;
 
-    private OrganData assignedOrganData; // このスロットが担当する臓器データ
+    // このスロットが担当する臓器データ
+    private OrganData assignedOrganData;
 
     // このスロットがクリックされたときに外部に通知するためのイベント
     public static event Action<OrganData> OnSlotClicked;

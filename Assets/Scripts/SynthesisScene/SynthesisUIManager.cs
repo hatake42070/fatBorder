@@ -6,14 +6,18 @@ using System.Linq;
 public class SynthesisUIManager : MonoBehaviour
 {
     [Header("合成スロットのUI")]
-    public List<Image> synthesisSlots; // Inspectorで左側の3つのスロット(Image)を設定
-    
+    // Inspectorで左側の3つのスロット(Image)を設定
+    public List<Image> synthesisSlots;
+
     [Header("合成ボタンと結果表示")]
+    // 合成ボタンを設定
     public Button synthesisButton;
+    // 生成するモンスターを表示するイメージを設定
     public Image resultMonsterImage;
 
     [Header("インベントリUIへの参照")]
-    public InventoryUI inventoryUI; // Inspectorでインベントリパネルを設定
+    // Inspectorでインベントリパネルを設定
+    public InventoryUI inventoryUI;
 
     // 現在選択されている素材リスト
     private List<OrganData> selectedIngredients = new List<OrganData>();
@@ -22,22 +26,29 @@ public class SynthesisUIManager : MonoBehaviour
     // 表示中のレシピ結果
     private MonsterData currentRecipeResult;
 
+    /// <summary>
+    /// このUIが表示状態になったときに呼び出される。
+    /// インベントリスロットからのクリックイベントの購読を開始する。
+    /// </summary>
     private void OnEnable()
     {
-        // InventorySlotUIからのクリックイベントを購読
         InventorySlotUI.OnSlotClicked += HandleSlotClick;
         // 合成ロジック用のレシピをロード
         synthesizer.LoadAllRecipes();
     }
 
+    /// <summary>
+    /// このUIが非表示状態になったときに呼び出される。
+    /// メモリリークを防ぐため、クリックイベントの購読を必ず解除する。
+    /// </summary>
     private void OnDisable()
     {
-        // イベントの購読を解除（重要）
         InventorySlotUI.OnSlotClicked -= HandleSlotClick;
     }
 
     private void Start()
     {
+        // ボタンがクリックされるとPerformSynthesisメソッドを呼び出す予約
         synthesisButton.onClick.AddListener(PerformSynthesis);
         UpdateSynthesisUI(); // 初期表示を更新
     }
@@ -100,21 +111,21 @@ public class SynthesisUIManager : MonoBehaviour
         if (currentRecipeResult == null) return;
 
         // --- 実際にアイテムを消費してモンスターを入手する処理 ---
-        
+
         // 1. InventoryManagerからselectedIngredientsを消費
-        foreach(var ingredient in selectedIngredients)
+        foreach (var ingredient in selectedIngredients)
         {
             // 今回は1つずつ消費する想定
-            // InventoryManagerにRemoveOrganのような関数を作ると、より綺麗になる
-            InventoryManager.Instance.ownedOrgans[ingredient]--;
-            if(InventoryManager.Instance.ownedOrgans[ingredient] <= 0)
-            {
-                InventoryManager.Instance.ownedOrgans.Remove(ingredient);
-            }
+            // InventoryManager.Instance.ownedOrgans[ingredient]--;
+            // if(InventoryManager.Instance.ownedOrgans[ingredient] <= 0)
+            // {
+            //     InventoryManager.Instance.ownedOrgans.Remove(ingredient);
+            // }
+            InventoryManager.Instance.RemoveOrgan(ingredient);
         }
 
-        // 2. PlayerDataにcurrentRecipeResultを追加（PlayerDataにAddMonster関数を作ると良い）
-        // PlayerData.Instance.unlockedMonsters.Add(currentRecipeResult);
+        // 2. PlayerDataにcurrentRecipeResultを追加
+        GameManager.Instance.PlayerData.AddMonster(currentRecipeResult, 1);
 
         // 3. InventoryUIの表示を更新
         inventoryUI.UpdateDisplay();
