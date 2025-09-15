@@ -19,6 +19,7 @@ public class TitleUIManager : MonoBehaviour
             //goToSynthesisButton.onClick.AddListener(() => GameManager.Instance.GoToSynthesis());
             goToSynthesisButton.onClick.AddListener(GameManager.Instance.GoToLab);
 
+            goToSynthesisButton.onClick.AddListener(() => GameManager.Instance.GoToSynthesis());
         }
     }
 }
