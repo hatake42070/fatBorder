@@ -8,12 +8,13 @@ public class OrgansEditor : EditorWindow
     // --- 変数定義 ---
     private List<OrganData> allOrgans = new List<OrganData>();
     private Vector2 scrollPosition;
+    // 検索用変数
     private string searchQuery = "";
     private enum SortType
     {
         // 名前でソート
-        AssetName_Ascending,
-        AssetName_Descending,
+        AssetName_Ascending, // 昇順
+        AssetName_Descending, // 降順
         // 臓器IDでソート
         OrganID_Ascending,
         OrganID_Descending,
@@ -55,9 +56,13 @@ public class OrgansEditor : EditorWindow
         EditorGUILayout.Space(10);
 
         // --- データ表示・編集エリア ---
+        // スクロールを管理
         scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+        // 検索してリストを絞る
         var filteredOrgans = string.IsNullOrEmpty(searchQuery) ? allOrgans : allOrgans.Where(r => r.name.ToLower().Contains(searchQuery.ToLower())).ToList();
+        // ソートしたリスト
         var sortedOrgans = SortOrgans(filteredOrgans);
+        // 削除するアセットを保持
         OrganData organToDelete = null;
 
         foreach (var organ in sortedOrgans)
@@ -71,7 +76,7 @@ public class OrgansEditor : EditorWindow
             organ.rarity = EditorGUILayout.IntSlider("レアリティ", organ.rarity, 1, 5);
             organ.category = (OrganCategory)EditorGUILayout.EnumPopup("カテゴリー", organ.category);
             organ.icon = (Sprite)EditorGUILayout.ObjectField("アイコン", organ.icon, typeof(Sprite), false, GUILayout.Height(64));
-            
+            // 変更があった時のみデータを保存
             if (EditorGUI.EndChangeCheck())
             {
                 // セットが変更されたことをUnityに通知
@@ -91,6 +96,8 @@ public class OrgansEditor : EditorWindow
         if (organToDelete != null)
         {
             EditorUtils.DeleteAsset(organToDelete);
+            // 削除されたアセットを参照するEditorUtils.DeleteAssetはnullを返すが、明示的にnullとする
+            organToDelete = null;
             LoadAllOrgans();
         }
 
