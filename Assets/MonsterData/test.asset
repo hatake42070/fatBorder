@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: 1
   monsterName: test
-  maxHp: 0
-  attackPower: 0
+  maxHp: 222
+  attackPower: 22
+  type: 1
+  rarity: 1
   description: 
   icon: {fileID: 21300000, guid: a8166ea434d337349818825bff42d2f6, type: 3}
