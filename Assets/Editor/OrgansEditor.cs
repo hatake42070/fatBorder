@@ -66,8 +66,11 @@ public class OrgansEditor : EditorWindow
         var sortedOrgans = SortOrgans(filteredOrgans);
         // 削除するアセットを保持
         scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+        // 検索してリストを絞る
         var filteredOrgans = string.IsNullOrEmpty(searchQuery) ? allOrgans : allOrgans.Where(r => r.name.ToLower().Contains(searchQuery.ToLower())).ToList();
+        // ソートしたリスト
         var sortedOrgans = SortOrgans(filteredOrgans);
+        // 削除するアセットを保持
         OrganData organToDelete = null;
 
         foreach (var organ in sortedOrgans)
