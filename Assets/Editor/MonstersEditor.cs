@@ -56,7 +56,6 @@ public class MonstersEditor : EditorWindow
         }
         searchQuery = EditorGUILayout.TextField("アセット名で検索", searchQuery);
         currentSortType = (SortType)EditorGUILayout.EnumPopup("並び替え", currentSortType);
-
         EditorGUILayout.Space(10);
 
         // --- データ表示・編集エリア ---
