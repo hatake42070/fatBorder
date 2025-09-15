@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 //using TMPro;
 
 public class InventorySlotUI : MonoBehaviour
@@ -8,6 +9,8 @@ public class InventorySlotUI : MonoBehaviour
     //public TextMeshProUGUI countText;
     public Text countText;
     
+    public static event Action<OrganData> OnSlotClicked;
+
     // データを受け取ってスロットの見た目を設定する
     public void Setup(OrganData organ, int count)
     {
