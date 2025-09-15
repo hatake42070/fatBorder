@@ -3,13 +3,15 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
 
-public class MonsterEditor : EditorWindow
+public class MonstersEditor : EditorWindow
 {
     // --- 変数定義 ---
     private List<MonsterData> allMonsters = new List<MonsterData>();
     private Vector2 scrollPosition;
     // 検索用変数
     private string searchQuery = "";
+    // 各モンスターのFoldoutが開いているか(true)閉じているか(false)を保存
+    private Dictionary<MonsterData, bool> monsterFoldoutStates = new Dictionary<MonsterData, bool>();
     private enum SortType
     {
         // 名前でソート
@@ -36,7 +38,7 @@ public class MonsterEditor : EditorWindow
     [MenuItem("Tools/モンスター管理エディタ")]
     public static void ShowWindow()
     {
-        GetWindow<MonsterEditor>("モンスター管理エディタ");
+        GetWindow<MonstersEditor>("モンスター管理エディタ");
     }
 
     private void OnEnable()
@@ -54,7 +56,7 @@ public class MonsterEditor : EditorWindow
         }
         searchQuery = EditorGUILayout.TextField("アセット名で検索", searchQuery);
         currentSortType = (SortType)EditorGUILayout.EnumPopup("並び替え", currentSortType);
-        
+
         EditorGUILayout.Space(10);
 
         // --- データ表示・編集エリア ---
@@ -69,31 +71,66 @@ public class MonsterEditor : EditorWindow
 
         foreach (var monster in sortedMonsters)
         {
-            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.LabelField(monster.name, EditorStyles.boldLabel);
-            
-            // 監視を開始
-            EditorGUI.BeginChangeCheck();
-            monster.monsterID = EditorGUILayout.IntField("モンスターID", monster.monsterID);
-            monster.rarity = EditorGUILayout.IntSlider("レアリティ", monster.rarity, 1, 5);
-            monster.type = (MonsterType)EditorGUILayout.EnumPopup("タイプ", monster.type);
-            monster.maxHp = EditorGUILayout.IntField("最大HP", monster.maxHp);
-            monster.attackPower = EditorGUILayout.IntField("攻撃力", monster.attackPower);
-            monster.icon = (Sprite)EditorGUILayout.ObjectField("アイコン", monster.icon, typeof(Sprite), false, GUILayout.Height(64));
-            // 変更があった時のみデータを保存
-            if (EditorGUI.EndChangeCheck())
-            {
-                // セットが変更されたことをUnityに通知
-                EditorUtility.SetDirty(monster);
-                AssetDatabase.SaveAssets();
-            }
+            // Foldoutを描画し、開閉状態を取得
+            bool isFoldoutOpen = GetFoldoutState(monster);
+            isFoldoutOpen = EditorGUILayout.Foldout(isFoldoutOpen, monster.name, true, EditorStyles.foldoutHeader);
+            SetFoldoutState(monster, isFoldoutOpen);
 
-            if (GUILayout.Button("このモンスターを削除"))
+            // もしFoldoutが開かれていたら、詳細情報を描画
+            if (isFoldoutOpen)
             {
-                monsterToDelete = monster;
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                EditorGUI.indentLevel++;
+
+                EditorGUI.BeginChangeCheck();
+
+                // --- 既存のパラメータ編集 ---
+                monster.monsterID = EditorGUILayout.IntField("モンスターID", monster.monsterID);
+                monster.rarity = EditorGUILayout.IntSlider("レアリティ", monster.rarity, 1, 5);
+                monster.type = (MonsterType)EditorGUILayout.EnumPopup("タイプ", monster.type);
+                monster.maxHp = EditorGUILayout.IntField("最大HP", monster.maxHp);
+                monster.attackPower = EditorGUILayout.IntField("攻撃力", monster.attackPower);
+                monster.icon = (Sprite)EditorGUILayout.ObjectField("アイコン", monster.icon, typeof(Sprite), false, GUILayout.Height(64));
+
+                // --- カードリスト編集機能 ---
+
+                EditorGUILayout.Space(10);
+                EditorGUILayout.LabelField("カードリスト", EditorStyles.boldLabel);
+
+                // 現在のカードリストのサイズを表示・編集
+                int newCardCount = EditorGUILayout.IntField("カード枚数", monster.cards.Count);
+                // リストのサイズが変更されたら、それに合わせてリストを調整
+                while (newCardCount != monster.cards.Count)
+                {
+                    if (newCardCount > monster.cards.Count)
+                        monster.cards.Add(null);
+                    else
+                        monster.cards.RemoveAt(monster.cards.Count - 1);
+                }
+
+                // 各カードのアセットを設定するスロットを描画
+                for (int i = 0; i < monster.cards.Count; i++)
+                {
+                    monster.cards[i] = (CardData)EditorGUILayout.ObjectField($"カード {i + 1}", monster.cards[i], typeof(CardData), false);
+                }
+
+                // --- カードリスト編集ここまで ---
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    EditorUtility.SetDirty(monster);
+                    AssetDatabase.SaveAssets();
+                }
+
+                if (GUILayout.Button("このモンスターを削除"))
+                {
+                    monsterToDelete = monster;
+                }
+
+                EditorGUI.indentLevel--;
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.Space(5);
             }
-            EditorGUILayout.EndVertical();
-            EditorGUILayout.Space(5);
         }
         EditorGUILayout.EndScrollView();
 
@@ -182,5 +219,18 @@ public class MonsterEditor : EditorWindow
         newMonsterId = 0;
         newMonsterRarity = 1;
         newMonsterIcon = null;
+    }
+    private bool GetFoldoutState(MonsterData monster)
+    {
+        if (!monsterFoldoutStates.ContainsKey(monster))
+        {
+            monsterFoldoutStates[monster] = false;
+        }
+        return monsterFoldoutStates[monster];
+    }
+
+    private void SetFoldoutState(MonsterData monster, bool state)
+    {
+        monsterFoldoutStates[monster] = state;
     }
 }
