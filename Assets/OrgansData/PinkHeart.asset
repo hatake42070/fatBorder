@@ -15,7 +15,7 @@ MonoBehaviour:
   organID: 0
   organName: 
   category: 0
-  rarity: 2
+  rarity: 1
   icon: {fileID: -2610975633400427606, guid: 8c1ff8771d15e40e0bdc6f370de34747, type: 3}
   description: 
   price: 0
