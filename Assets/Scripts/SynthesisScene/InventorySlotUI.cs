@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6032864 ([fix]エラーの解消)
 using System;
 //using TMPro;
 
@@ -77,6 +80,8 @@ public class InventorySlotUI : MonoBehaviour
         SetSelected(false);
 =======
     
+    public static event Action<OrganData> OnSlotClicked;
+
     // データを受け取ってスロットの見た目を設定する
     public void Setup(OrganData organ, int count)
     {
