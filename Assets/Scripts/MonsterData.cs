@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum MonsterType { Fire, Water, Grass, Other } //炎、水、草、その他 これらは仮
 // この行を追加することで、Unityのメニューからデータアセットを作成できるようになる
@@ -21,4 +22,7 @@ public class MonsterData : ScriptableObject
     public string description; // 図鑑用の説明文
 
     public Sprite icon; // モンスターのイラスト
+
+    [Header("このモンスターが提供するカード (10枚)")]
+    public List<CardData> cards = new List<CardData>();
 }

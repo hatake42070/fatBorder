@@ -314,6 +314,7 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &361284006
+--- !u!1 &317228746
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -405,12 +406,17 @@ GameObject:
   - component: {fileID: 919037642}
   m_Layer: 0
   m_Name: EventSystem
+  - component: {fileID: 317228748}
+  - component: {fileID: 317228747}
+  m_Layer: 0
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &919037642
+--- !u!114 &317228747
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -457,6 +463,13 @@ MonoBehaviour:
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &919037644
+  m_GameObject: {fileID: 317228746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9171ac973e27c44148b9d6cbc0a04138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &317228748
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -472,6 +485,17 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1194434287
+  m_GameObject: {fileID: 317228746}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 563.26996, y: 460.37604, z: -10.528037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1062827096}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1062827095
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -486,6 +510,10 @@ GameObject:
   - component: {fileID: 1194434289}
   m_Layer: 5
   m_Name: Button (Legacy)
+  - component: {fileID: 1062827096}
+  - component: {fileID: 1062827097}
+  m_Layer: 0
+  m_Name: PlayerData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -493,11 +521,15 @@ GameObject:
   m_IsActive: 1
 --- !u!224 &1194434288
 RectTransform:
+--- !u!4 &1062827096
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1194434287}
+  m_GameObject: {fileID: 1062827095}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -512,6 +544,10 @@ RectTransform:
   m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1194434289
+  m_Children: []
+  m_Father: {fileID: 317228748}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1062827097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -663,6 +699,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+  m_GameObject: {fileID: 1062827095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34b4166f971a4f4b88bf9da8ed13f0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  researchPoints: 0
+  unlockedMonsters: []
+  ownedArtifacts: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -671,3 +716,4 @@ SceneRoots:
   - {fileID: 6407713996831801131}
   - {fileID: 14464726}
   - {fileID: 919037644}
+  - {fileID: 317228748}
