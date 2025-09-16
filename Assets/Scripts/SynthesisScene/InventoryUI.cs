@@ -2,6 +2,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq; // ToList()を使うために必要
 
+/// <summary>
+/// プレイヤーの所持品データを元に、インベントリのUI表示を管理するクラス。
+/// ゲーム開始時に指定された最大数まで空のスロットを生成し、
+/// データに応じて各スロットの表示内容を更新する。
+/// </summary>
 public class InventoryUI : MonoBehaviour
 {
     public GameObject inventorySlotPrefab; // スロットのプレハブ

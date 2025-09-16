@@ -2,16 +2,21 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// ゲーム内に存在する全ての合成レシピを管理し、与えられた素材リストに一致するレシピを検索して、
+/// 結果のモンスターデータを返すロジッククラス。
+/// </summary>
 public class MonsterSynthesizer
 {
     private List<SynthesisRecipe> allRecipes;
 
     public void LoadAllRecipes()
     {
+        // Assets/Resources/というパスの中のRecipesフォルダの中からSynthesisRecipeアセットを探す
         allRecipes = Resources.LoadAll<SynthesisRecipe>("Recipes").ToList();
     }
 
-    // 引数をリストに変更
+    // レシピを確認して合成する
     public MonsterData Synthesize(List<OrganData> inputIngredients)
     {
         foreach (var recipe in allRecipes)
