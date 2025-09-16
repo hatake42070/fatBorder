@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         PlayerData = GetComponentInChildren<PlayerData>();
     }
 
-    // --- シーン切り替え用の関数 ---
+    // --- シーン切り替え用のメソッド ---
     public void GoToTitle()
     {
         SceneManager.LoadScene("TitleScene");
