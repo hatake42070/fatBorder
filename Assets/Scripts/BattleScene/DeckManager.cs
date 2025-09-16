@@ -6,7 +6,7 @@ public class DeckManager : MonoBehaviour
     [Header("デッキ管理")]
     public List<Card> deck = new List<Card>();       // 山札
     public List<Card> hand = new List<Card>();       // 手札
-    public List<Card> discardPile = new List<Card>(); // 墓地
+    public List<Card> discardPile = new List<Card>(); // 墓地(捨て札)
 
     [Header("手札設定")]
     public int handSize = 5; // 手札枚数
