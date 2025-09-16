@@ -15,19 +15,16 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         // シングルトンパターンの実装
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-            // このオブジェクトをシーン切り替え時に破棄しない
-            DontDestroyOnLoad(gameObject);
-
-            // 自分の子オブジェクトからPlayerDataを探して参照を保持
-            PlayerData = GetComponentInChildren<PlayerData>();
+            // 自分はテスト用の仮のマネージャーなので、自分を破棄して処理を終える
+            Destroy(gameObject);
+            return; // returnで、これ以降のAwake処理を実行しない
         }
-        else
-        {
-            Destroy(gameObject); // 既にインスタンスが存在すれば自分を破棄
-        }
+        // 以下は、自分が最初のGameManagerだった場合のみ実行される
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        PlayerData = GetComponentInChildren<PlayerData>();
     }
 
     // --- シーン切り替え用の関数 ---
