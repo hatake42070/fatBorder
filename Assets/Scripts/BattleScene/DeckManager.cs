@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
-    [Header("デッキ管理")]
+    [Header("deck management")]
     public List<Card> deck = new List<Card>();       // 山札
     public List<Card> hand = new List<Card>();       // 手札
     public List<Card> discardPile = new List<Card>(); // 墓地(捨て札)
 
-    [Header("手札設定")]
+    [Header("hand setting")]
     public int handSize = 5; // 手札枚数
 
     /// <summary>

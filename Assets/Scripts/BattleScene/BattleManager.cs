@@ -1,122 +1,138 @@
-using System.Collections;
 using UnityEngine;
-using TMPro; // TextMeshPro を使う場合
+using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
-    // === プレイヤーと敵のステータス ===
-    [SerializeField] private int playerHP = 100;
-    [SerializeField] private int enemyHP = 50;
+    [Header("Managers")]
+    [SerializeField] private DeckManager deckManager;
+    [SerializeField] private ManaManager manaManager;
 
-    // === HUDやUIへの参照 ===
-    [SerializeField] private HpGaugeController playerHpBar;  // HPゲージ制御
-    [SerializeField] private HpGaugeController enemyHpBar;   // HPゲージ制御
-    [SerializeField] private TMP_Text messageText;
-    [SerializeField] private GameObject commandPanel;        // コマンドボタンパネル
+    [Header("Player & Enemy HP")]
+    [SerializeField] private int playerHP = 30;
+    [SerializeField] private int enemyHP = 30;
+    [SerializeField] private TMP_Text playerHPText;
+    [SerializeField] private TMP_Text enemyHPText;
 
-    // バトルの状態管理
-    private enum BattleState { START, PLAYER_TURN, ENEMY_TURN, WIN, LOSE }
-    private BattleState state;
+    [Header("UI")]
+    [SerializeField] private TMP_Text logText; // 戦闘ログ
+
+    private bool playerTurn = true;
 
     void Start()
     {
-        // バトル開始
-        state = BattleState.START;
-        StartCoroutine(SetupBattle());
+        // 最初の手札を満たす
+        deckManager.DrawHandToFull();
+
+        // 1ターン目開始
+        StartPlayerTurn();
     }
 
-    // バトル開始時の初期化処理
-    IEnumerator SetupBattle()
+    /// <summary>
+    /// プレイヤーターン開始
+    /// </summary>
+    private void StartPlayerTurn()
     {
-        messageText.text = "バトル開始！";
+        playerTurn = true;
 
-        // HPバー初期化
-        playerHpBar.BeInjured(0); // 現在HP表示用
-        enemyHpBar.BeInjured(0);  // 現在HP表示用
+        // マナ回復
+        manaManager.StartTurn();
 
-        yield return new WaitForSeconds(1f);
+        // ターン開始時に1枚だけドロー
+        deckManager.DrawCard();
 
-        // プレイヤーターンへ
-        PlayerTurn();
-    }
+        Log("プレイヤーのターン開始！");}
 
-    // プレイヤーターン開始
-    void PlayerTurn()
+    /// <summary>
+    /// プレイヤーがカードを使用
+    /// </summary>
+    public void PlayCard(Card card)
     {
-        state = BattleState.PLAYER_TURN;
-        messageText.text = "コマンドを選んでください";
-        commandPanel.SetActive(true); // コマンドボタンを表示
-    }
+        if (!playerTurn) return;
 
-    // 攻撃ボタンから呼び出す用
-    public void OnAttackButton()
-    {
-        if (state != BattleState.PLAYER_TURN) return;
-        commandPanel.SetActive(false);
-        StartCoroutine(PlayerAttack());
-    }
-
-    // プレイヤーの攻撃処理
-    IEnumerator PlayerAttack()
-    {
-        messageText.text = "プレイヤーの攻撃！";
-
-        int damage = 10;
-        enemyHP = Mathf.Max(enemyHP - damage, 0);
-        enemyHpBar.BeInjured(damage); // HPバーをアニメーションで更新
-
-        yield return new WaitForSeconds(1f);
-
-        if (enemyHP <= 0)
+        // マナが足りるか確認
+        if (manaManager.UseMana(card.manaCost))
         {
-            state = BattleState.WIN;
-            EndBattle();
+            // カード効果を適用
+            switch (card.cardType)
+            {
+                case CardType.Attack:
+                    enemyHP -= card.power;
+                    Log($"敵に{card.power}ダメージ！");
+                    break;
+                case CardType.Heal:
+                    playerHP += card.power;
+                    Log($"プレイヤーが{card.power}回復！");
+                    break;
+                    // 他のカードタイプも追加可能
+            }
+
+            UpdateHPUI();
+            deckManager.DiscardCard(card); // 使用したカードは墓地へ
+
+            // 敵が倒れたら勝利
+            if (enemyHP <= 0)
+            {
+                Log("敵を倒した！");
+            }
         }
         else
         {
-            EnemyTurn();
+            Log("マナが足りません！");
         }
     }
 
-    // 敵ターン
-    void EnemyTurn()
+    /// <summary>
+    /// プレイヤーがターンエンド
+    /// </summary>
+    public void EndPlayerTurn()
     {
-        state = BattleState.ENEMY_TURN;
-        StartCoroutine(EnemyAttack());
+        if (!playerTurn) return;
+
+        playerTurn = false;
+        Log("プレイヤーのターン終了！");
+        EnemyTurn();
     }
 
-    // 敵の攻撃処理
-    IEnumerator EnemyAttack()
+    /// <summary>
+    /// 敵ターン
+    /// </summary>
+    private void EnemyTurn()
     {
-        messageText.text = "敵の攻撃！";
-
+        // シンプルに敵が固定ダメージ
         int damage = 5;
-        playerHP = Mathf.Max(playerHP - damage, 0);
-        playerHpBar.BeInjured(damage); // HPバーをアニメーションで更新
+        playerHP -= damage;
+        Log($"敵の攻撃！ プレイヤーに{damage}ダメージ！");
+        UpdateHPUI();
 
-        yield return new WaitForSeconds(1f);
-
+        // プレイヤーが倒れたら敗北
         if (playerHP <= 0)
         {
-            state = BattleState.LOSE;
-            EndBattle();
+            Log("プレイヤーは倒れた…");
+            return;
         }
-        else
-        {
-            PlayerTurn();
-        }
+
+        // 次のプレイヤーターンへ
+        StartPlayerTurn();
     }
 
-    // バトル終了
-    void EndBattle()
+    /// <summary>
+    /// HP表示更新
+    /// </summary>
+    private void UpdateHPUI()
     {
-        if (state == BattleState.WIN)
+        if (playerHPText) playerHPText.text = $"HP: {playerHP}";
+        if (enemyHPText) enemyHPText.text = $"HP: {enemyHP}";
+    }
+
+    /// <summary>
+    /// 戦闘ログにメッセージを追加
+    /// </summary>
+    private void Log(string message)
+    {
+        if (logText != null)
         {
-            messageText.text = "勝利しました！";
+            logText.text += message + "\n";
         }
-        else if (state == BattleState.LOSE)
-        {
-            messageText.text = "負けました...";
-        }
+        Debug.Log(message);
     }
 }
