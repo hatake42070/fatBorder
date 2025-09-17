@@ -14,7 +14,7 @@ public class InventoryUI : MonoBehaviour
     public int maxSlots = 50;             // インベントリの最大スロット数
 
     // 生成した全スロットの参照を保存しておくリスト
-    private List<InventorySlotUI> slotUIs = new List<InventorySlotUI>();
+    public List<InventorySlotUI> SlotUIs = new List<InventorySlotUI>();
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class InventoryUI : MonoBehaviour
             GameObject slotGO = Instantiate(inventorySlotPrefab, contentPanel);
             InventorySlotUI slotUI = slotGO.GetComponent<InventorySlotUI>();
             slotUI.ClearSlot(); // スロットを空の状態にする
-            slotUIs.Add(slotUI);
+            SlotUIs.Add(slotUI);
         }
 
         // インベントリの初期表示を更新
@@ -40,19 +40,19 @@ public class InventoryUI : MonoBehaviour
         List<OrganData> ownedOrgansList = ownedOrgans.Keys.ToList();
 
         // 全スロットをループして、表示を更新する
-        for (int i = 0; i < slotUIs.Count; i++)
+        for (int i = 0; i < SlotUIs.Count; i++)
         {
             // 表示すべきアイテムがまだある場合
             if (i < ownedOrgansList.Count)
             {
                 OrganData organ = ownedOrgansList[i];
                 int count = ownedOrgans[organ];
-                slotUIs[i].Setup(organ, count); // スロットにデータを設定
+                SlotUIs[i].Setup(organ, count); // スロットにデータを設定
             }
             // 表示すべきアイテムがもうない（空のスロット）の場合
             else
             {
-                slotUIs[i].ClearSlot(); // スロットを空にする
+                SlotUIs[i].ClearSlot(); // スロットを空にする
             }
         }
     }
