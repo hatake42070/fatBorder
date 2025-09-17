@@ -32,7 +32,7 @@ public class SynthesisUIManager : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        InventorySlotUI.OnSlotClicked += HandleSlotClick;
+        InventorySlotUI.OnSelectionChanged += HandleSelectionChanged;
         // 合成ロジック用のレシピをロード
         synthesizer.LoadAllRecipes();
     }
@@ -43,7 +43,7 @@ public class SynthesisUIManager : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        InventorySlotUI.OnSlotClicked -= HandleSlotClick;
+        InventorySlotUI.OnSelectionChanged -= HandleSelectionChanged;
     }
 
     private void Start()
@@ -53,21 +53,27 @@ public class SynthesisUIManager : MonoBehaviour
         UpdateSynthesisUI(); // 初期表示を更新
     }
 
-    // インベントリスロットがクリックされるたびに呼ばれる
-    private void HandleSlotClick(OrganData clickedOrgan)
+
+    // スロットの選択状態が変わるたびに呼ばれる
+    private void HandleSelectionChanged(OrganData organ, bool isSelected)
     {
-        // もし、クリックされた臓器が既に選択リストにあれば、リストから除去
-        if (selectedIngredients.Contains(clickedOrgan))
+        // スロットから送られてきた情報に基づいて、リストを更新
+        if (isSelected)
         {
-            selectedIngredients.Remove(clickedOrgan);
+            // 選択されたので、リストに追加（上限チェック）
+            if (selectedIngredients.Count < synthesisSlots.Count)
+            {
+                selectedIngredients.Add(organ);
+            }
         }
-        // もし、選択リストに空きがあれば（3つ未満）、リストに追加
-        else if (selectedIngredients.Count < synthesisSlots.Count) // 3ではなくリストの数で判定
+        else
         {
-            selectedIngredients.Add(clickedOrgan);
+            // 選択解除されたので、リストから除去
+            selectedIngredients.Remove(organ);
         }
 
         UpdateSynthesisUI();
+        UpdateInventorySelection();
     }
 
     // 合成UI全体の表示を更新する
@@ -89,10 +95,10 @@ public class SynthesisUIManager : MonoBehaviour
 
         // 2. レシピと照合して、合成可能かチェック
         currentRecipeResult = synthesizer.Synthesize(selectedIngredients);
-        
+
         // 3. 合成ボタンの有効/無効を切り替え
         synthesisButton.interactable = (currentRecipeResult != null);
-        
+
         // 4. 結果表示を更新（プレビュー）
         if (currentRecipeResult != null)
         {
@@ -135,5 +141,21 @@ public class SynthesisUIManager : MonoBehaviour
         // 合成後、選択をクリアしてUIを再更新
         selectedIngredients.Clear();
         UpdateSynthesisUI();
+        UpdateInventorySelection();
+    }
+    private void UpdateInventorySelection()
+    {
+        // InventoryUIが持つ全スロットのリストを取得
+        foreach (var slot in inventoryUI.SlotUIs)
+        {
+            // そのスロットの臓器データを取得
+            OrganData organInSlot = slot.GetAssignedOrgan();
+            
+            // その臓器が選択中リストに含まれているか、かつスロットが空でないか
+            bool isSelected = organInSlot != null && selectedIngredients.Contains(organInSlot);
+            
+            // スロットに選択状態を伝えて色を変更させる
+            slot.SetSelected(isSelected);
+        }
     }
 }

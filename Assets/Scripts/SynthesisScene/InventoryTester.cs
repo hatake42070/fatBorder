@@ -5,6 +5,7 @@ public class InventoryTester : MonoBehaviour
     // Inspectorで、テスト追加したい臓器アセットを設定する
     public OrganData testOrgan1;
     public OrganData testOrgan2;
+    public OrganData testOrgan3;
     
     // 表示を更新するためのInventoryUIへの参照
     public InventoryUI inventoryUI;
@@ -16,14 +17,8 @@ public class InventoryTester : MonoBehaviour
         {
             // 1. InventoryManagerにテスト用の臓器を1個追加する
             InventoryManager.Instance.AddOrgan(testOrgan1, 1);
-
-            // 2. InventoryUIに表示を更新するように命令する
-            inventoryUI.UpdateDisplay();
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            // 1. InventoryManagerにテスト用の臓器を1個追加する
             InventoryManager.Instance.AddOrgan(testOrgan2, 1);
+            InventoryManager.Instance.AddOrgan(testOrgan3, 1);
 
             // 2. InventoryUIに表示を更新するように命令する
             inventoryUI.UpdateDisplay();
