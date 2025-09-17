@@ -25,6 +25,8 @@ public class SynthesisUIManager : MonoBehaviour
     private MonsterSynthesizer synthesizer = new MonsterSynthesizer();
     // 表示中のレシピ結果
     private MonsterData currentRecipeResult;
+    // 所持していないモンスターは？を表示する
+    public List<Sprite> unknownIconsByRarity;
 
     /// <summary>
     /// このUIが表示状態になったときに呼び出される。
@@ -103,7 +105,45 @@ public class SynthesisUIManager : MonoBehaviour
         if (currentRecipeResult != null)
         {
             resultMonsterImage.enabled = true;
-            resultMonsterImage.sprite = currentRecipeResult.icon;
+            if (GameManager.Instance.PlayerData.ownedMonsters.ContainsKey(currentRecipeResult))
+            {
+                resultMonsterImage.sprite = currentRecipeResult.icon;
+            }
+            else
+            {
+                int rarity = currentRecipeResult.rarity;
+
+                switch (rarity)
+                {
+                    case 5:
+                        // 安全のためリストのサイズチェック
+                        if (unknownIconsByRarity.Count > 4)
+                            resultMonsterImage.sprite = unknownIconsByRarity[4];
+                        break;
+                    case 4:
+                        if (unknownIconsByRarity.Count > 3)
+                            resultMonsterImage.sprite = unknownIconsByRarity[3];
+                        break;
+                    case 3:
+                        if (unknownIconsByRarity.Count > 2)
+                            resultMonsterImage.sprite = unknownIconsByRarity[2];
+                        break;
+                    case 2:
+                        if (unknownIconsByRarity.Count > 1)
+                            resultMonsterImage.sprite = unknownIconsByRarity[1];
+                        break;
+                    case 1:
+                        if (unknownIconsByRarity.Count > 0)
+                            resultMonsterImage.sprite = unknownIconsByRarity[0];
+                        break;
+                    default:
+                        // どのレアリティにも当てはまらない場合（エラー対策）
+                        if (unknownIconsByRarity.Count > 0)
+                            resultMonsterImage.sprite = unknownIconsByRarity[0];
+                        break;
+                }
+            }
+            
         }
         else
         {
