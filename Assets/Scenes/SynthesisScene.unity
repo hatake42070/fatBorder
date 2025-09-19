@@ -1306,6 +1306,12 @@ MonoBehaviour:
   synthesisButton: {fileID: 513341261}
   resultMonsterImage: {fileID: 352002015}
   inventoryUI: {fileID: 1496665883}
+  unknownIconsByRarity:
+  - {fileID: 21300000, guid: 2d2ec962df8174c3391caa050a6dc40a, type: 3}
+  - {fileID: 21300000, guid: f55b75c0f4a24407d901ead2f0065cf1, type: 3}
+  - {fileID: 21300000, guid: 5407ccb7a227e4fc5932fa1478f15892, type: 3}
+  - {fileID: 21300000, guid: 35d24cfbe8dd54486b72aedc323ab05e, type: 3}
+  - {fileID: 21300000, guid: 9836c54fe46214a69b5c9060ac84eb6a, type: 3}
 --- !u!1 &1426424517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,6 +1552,7 @@ MonoBehaviour:
   inventorySlotPrefab: {fileID: 589982255914723861, guid: 63f0db0c652094659bad118194b5bbe7, type: 3}
   contentPanel: {fileID: 1284692743}
   maxSlots: 50
+  SlotUIs: []
 --- !u!114 &1496665884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,8 +1573,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dade794ec920646469e4ac793835361f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
