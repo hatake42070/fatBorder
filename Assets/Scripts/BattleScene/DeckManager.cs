@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
-    [Header("deck management")]
-    public List<Card> deck = new List<Card>();       // 山札
-    public List<Card> hand = new List<Card>();       // 手札
-    public List<Card> discardPile = new List<Card>(); // 墓地(捨て札)
+    [Header("Deck Management")]
+    public List<Card> deck = new List<Card>();        // 山札
+    public List<Card> hand = new List<Card>();        // 手札
+    public List<Card> discardPile = new List<Card>(); // 墓地
 
-    [Header("hand setting")]
-    public int handSize = 5; // 手札枚数
+    [Header("Start Game Hand Setting")]
+    [SerializeField] private int initialHandSize = 5; // ゲーム開始時の手札枚数
 
     /// <summary>
     /// デッキにカードを追加（初期設定用）
@@ -20,13 +20,31 @@ public class DeckManager : MonoBehaviour
     }
 
     /// <summary>
+    /// ゲーム開始時に初期手札を引くためのメソッド
+    /// </summary>
+    public void DrawInitialHand()
+    {
+        for (int i = 0; i < initialHandSize; i++)
+        {
+            DrawCard();
+        }
+    }
+
+    /// <summary>
+    /// ターン開始時に1枚だけドロー
+    /// </summary>
+    public void DrawCardAtTurnStart()
+    {
+        DrawCard();
+    }
+
+    /// <summary>
     /// デッキから1枚ドロー
     /// </summary>
     public Card DrawCard()
     {
         if (deck.Count == 0)
         {
-            // 山札が空なら墓地をシャッフルして戻す
             ReshuffleDiscardIntoDeck();
         }
 
@@ -40,17 +58,6 @@ public class DeckManager : MonoBehaviour
         deck.RemoveAt(0);
         hand.Add(drawn);
         return drawn;
-    }
-
-    /// <summary>
-    /// ターン開始時に手札を補充する
-    /// </summary>
-    public void DrawHandToFull()
-    {
-        while (hand.Count < handSize)
-        {
-            DrawCard();
-        }
     }
 
     /// <summary>
@@ -88,4 +95,7 @@ public class DeckManager : MonoBehaviour
             deck[rand] = temp;
         }
     }
+
+    // 手札リスト取得のためのゲッター
+    public List<Card> GetHand() => hand;
 }
