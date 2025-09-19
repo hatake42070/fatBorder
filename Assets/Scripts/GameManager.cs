@@ -38,15 +38,25 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("LabScene");
     }
 
+    public void GoToStudy()
+    {
+        SceneManager.LoadScene("StudyScene");
+    }
+
+    public void GoToInventory()
+    {
+        SceneManager.LoadScene("Inventory");
+    }
+
     public void GoToSynthesis()
     {
         SceneManager.LoadScene("SynthesisScene");
     }
 
-    public void GoToBattle(int stageIndex)
+    public void GoToBattle()
     {
         // どのステージに挑戦するか、などの情報を保持してシーンをロード
-        this.currentStageIndex = stageIndex;
-        SceneManager.LoadScene("Battle_Scene");
+        //this.currentStageIndex = stageIndex;
+        SceneManager.LoadScene("BattleScene");
     }
 }
