@@ -20,8 +20,11 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        // 最初の手札を満たす
-        deckManager.DrawHandToFull();
+        // ゲーム開始時の手札5枚ドロー
+        deckManager.DrawInitialHand();
+
+        UpdateHPUI();
+        Log("バトル開始！");
 
         // 1ターン目開始
         StartPlayerTurn();
@@ -34,13 +37,14 @@ public class BattleManager : MonoBehaviour
     {
         playerTurn = true;
 
-        // マナ回復
+        // マナ回復（ターン数に応じて使用可能マナ増加）
         manaManager.StartTurn();
 
         // ターン開始時に1枚だけドロー
         deckManager.DrawCard();
 
-        Log("プレイヤーのターン開始！");}
+        Log("プレイヤーのターン開始！");
+    }
 
     /// <summary>
     /// プレイヤーがカードを使用
@@ -50,20 +54,20 @@ public class BattleManager : MonoBehaviour
         if (!playerTurn) return;
 
         // マナが足りるか確認
-        if (manaManager.UseMana(card.manaCost))
+        if (manaManager.UseMana(card.GetManaCost()))
         {
             // カード効果を適用
-            switch (card.cardType)
+            switch (card.GetCardType())
             {
                 case CardType.Attack:
-                    enemyHP -= card.power;
-                    Log($"敵に{card.power}ダメージ！");
+                    enemyHP -= card.GetPower();
+                    Log($"敵に{card.GetPower()}ダメージ！");
                     break;
                 case CardType.Heal:
-                    playerHP += card.power;
-                    Log($"プレイヤーが{card.power}回復！");
+                    playerHP += card.GetPower();
+                    Log($"プレイヤーが{card.GetPower()}回復！");
                     break;
-                    // 他のカードタイプも追加可能
+                // 他のカードタイプも追加可能
             }
 
             UpdateHPUI();
