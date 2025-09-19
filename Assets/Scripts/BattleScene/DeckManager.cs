@@ -31,6 +31,25 @@ public class DeckManager : MonoBehaviour
     }
 
     /// <summary>
+    /// ゲーム開始時に初期手札を引くためのメソッド
+    /// </summary>
+    public void DrawInitialHand()
+    {
+        for (int i = 0; i < initialHandSize; i++)
+        {
+            DrawCard();
+        }
+    }
+
+    /// <summary>
+    /// ターン開始時に1枚だけドロー
+    /// </summary>
+    public void DrawCardAtTurnStart()
+    {
+        DrawCard();
+    }
+
+    /// <summary>
     /// デッキから1枚ドロー
     /// </summary>
     public Card DrawCard()
