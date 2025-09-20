@@ -37,20 +37,30 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("LabScene");
     }
-
-    public void GoToStudy()
+    // ショップシーン
+    public void GoToShop()
     {
-        SceneManager.LoadScene("StudyScene");
+        SceneManager.LoadScene("ShopScene");
     }
-
-    public void GoToInventory()
+    // モンスターインベントリシーン
+    public void GoToMonsterInventory()
     {
-        SceneManager.LoadScene("Inventory");
+        SceneManager.LoadScene("MonsterInventoryScene");
     }
-
+    // 臓器インベントリシーン
+    public void GoToOrganInventory()
+    {
+        SceneManager.LoadScene("OrganInventoryScene");
+    }
+    // 合成シーン
     public void GoToSynthesis()
     {
         SceneManager.LoadScene("SynthesisScene");
+    }
+    // 錬成シーン
+    public void GoToStudy()
+    {
+        SceneManager.LoadScene("StudyScene");
     }
 
     public void GoToBattle()
