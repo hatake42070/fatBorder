@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     // 錬成シーン
     public void GoToStudy()
     {
-        SceneManager.LoadScene("StudyScene");
+        SceneManager.LoadScene("GachaScene");
     }
 
     public void GoToBattle()
