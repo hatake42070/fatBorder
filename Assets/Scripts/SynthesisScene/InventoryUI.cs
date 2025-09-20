@@ -16,6 +16,19 @@ public class InventoryUI : MonoBehaviour
     // 生成した全スロットの参照を保存しておくリスト
     public List<InventorySlotUI> SlotUIs = new List<InventorySlotUI>();
 
+    private void OnEnable()
+    {
+        // PlayerDataからの放送（OnInventoryChanged）を聞き始めたら、
+        // 自分のUpdateDisplayメソッドを呼び出すように予約する
+        PlayerData.OnInventoryChanged += UpdateDisplay;
+    }
+
+    private void OnDisable()
+    {
+        // このUIが非表示になったら、放送を聞くのをやめる（メモリリーク防止）
+        PlayerData.OnInventoryChanged -= UpdateDisplay;
+    }
+
     void Start()
     {
         // 最初に空のスロットを最大数だけ生成する
@@ -35,8 +48,8 @@ public class InventoryUI : MonoBehaviour
     // インベントリの表示を更新する関数
     public void UpdateDisplay()
     {
-        // InventoryManagerから最新の所持品リストを取得
-        var ownedOrgans = InventoryManager.Instance.ownedOrgans;
+        // GameManager.Instance.PlayerDataから最新の所持品リストを取得
+        var ownedOrgans = GameManager.Instance.PlayerData.ownedOrgans;
         List<OrganData> ownedOrgansList = ownedOrgans.Keys.ToList();
 
         // 全スロットをループして、表示を更新する

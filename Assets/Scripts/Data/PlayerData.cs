@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class PlayerData : MonoBehaviour
 {
     public int researchPoints; // 研究ポイント
+
+    // --- データ変更を通知するためのイベント ---
+    public static event Action OnInventoryChanged;
 
     // 所持している臓器とその数
     public Dictionary<OrganData, int> ownedOrgans = new Dictionary<OrganData, int>();
@@ -78,6 +82,19 @@ public class PlayerData : MonoBehaviour
         {
             ownedOrgans.Add(organ, amount);
         }
+        // イベント発行
+        OnInventoryChanged?.Invoke();
+    }
+    // 臓器を削除するメソッド
+    public void RemoveOrgan(OrganData organ)
+    {
+        ownedOrgans[organ]--;
+        if (ownedOrgans[organ] <= 0)
+        {
+            ownedOrgans.Remove(organ);
+        }
+        // イベント発行
+        OnInventoryChanged?.Invoke();
     }
 
     public void AddMonster(MonsterData monster, int amount)
