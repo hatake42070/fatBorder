@@ -6,22 +6,16 @@ public class InventoryTester : MonoBehaviour
     public OrganData testOrgan1;
     public OrganData testOrgan2;
     public OrganData testOrgan3;
-    
-    // 表示を更新するためのInventoryUIへの参照
-    public InventoryUI inventoryUI;
 
     void Update()
     {
         // 「P」キーが押されたら
         if (Input.GetKeyDown(KeyCode.P))
         {
-            // 1. InventoryManagerにテスト用の臓器を1個追加する
-            InventoryManager.Instance.AddOrgan(testOrgan1, 1);
-            InventoryManager.Instance.AddOrgan(testOrgan2, 1);
-            InventoryManager.Instance.AddOrgan(testOrgan3, 1);
-
-            // 2. InventoryUIに表示を更新するように命令する
-            inventoryUI.UpdateDisplay();
+            // 1. PlayerDataにテスト用の臓器を1個追加する
+            GameManager.Instance.PlayerData.AddOrgan(testOrgan1, 1);
+            GameManager.Instance.PlayerData.AddOrgan(testOrgan2, 1);
+            GameManager.Instance.PlayerData.AddOrgan(testOrgan3, 1);
         }
     }
 }
