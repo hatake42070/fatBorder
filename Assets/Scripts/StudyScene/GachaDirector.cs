@@ -62,11 +62,19 @@ public class GachaDirector : MonoBehaviour
     {
         IsPlaying = true;
 
+        /// --- 1. ---
+        /// エフェクトが完成するとまず、
+        /// gachaResultPanel.SetActive(true);
+        /// effectPanel.SetActive(true);      // 演出パネルを表示
+        /// singleResultDisplay.SetActive(true); 結果は非表示
+        /// summaryDisplay.SetActive(false);
+        /// nextButton.gameObject.SetActive(true);
+
         // --- 1. 演出の準備 ---
         gachaResultPanel.SetActive(true);
         singleResultDisplay.SetActive(true);
         summaryDisplay.SetActive(false);
-        nextButton.gameObject.SetActive(true); // 「次へ」ボタンを表示
+        //nextButton.gameObject.SetActive(true); // 「次へ」ボタンを表示
 
         // --- 2. ボタンが押されるたびに、次の結果を表示 ---
         foreach (var organ in results)
@@ -79,17 +87,24 @@ public class GachaDirector : MonoBehaviour
             // ここで「カードがめくれる」などのアニメーションやサウンドを再生
             // if (organ.rarity == 1)
             // {
-                
+            /// エフェクトメソッド呼び出す
             // } レアリティで演出変える
+            
+            ///    // 演出が終わるまで待つ
+            ///yield return new WaitForSeconds(1.5f);
+
+            // --- 3. 結果の表示 ---
+            /// effectPanel.SetActive(false);       // 演出パネルを非表示にして
+            /// resultDisplayPanel.SetActive(true); // 結果パネルを表示する
 
             // 旗を下げて、ボタンが押されるのを待つ
-                nextButtonPressed = false;
+            nextButtonPressed = false;
             yield return new WaitUntil(() => nextButtonPressed);
         }
 
         // --- 3. 最終的な一覧表示 ---
         singleResultDisplay.SetActive(false);
-        nextButton.gameObject.SetActive(false); // 「次へ」ボタンを非表示
+        //nextButton.gameObject.SetActive(false); // 「次へ」ボタンを非表示
         summaryDisplay.SetActive(true);
         PopulateSummaryGrid(results);
         count = 1;
