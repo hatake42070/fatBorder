@@ -37,16 +37,36 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("LabScene");
     }
-
+    // ショップシーン
+    public void GoToShop()
+    {
+        SceneManager.LoadScene("ShopScene");
+    }
+    // モンスターインベントリシーン
+    public void GoToMonsterInventory()
+    {
+        SceneManager.LoadScene("MonsterInventoryScene");
+    }
+    // 臓器インベントリシーン
+    public void GoToOrganInventory()
+    {
+        SceneManager.LoadScene("OrganInventoryScene");
+    }
+    // 合成シーン
     public void GoToSynthesis()
     {
         SceneManager.LoadScene("SynthesisScene");
     }
+    // 錬成シーン
+    public void GoToStudy()
+    {
+        SceneManager.LoadScene("GachaScene");
+    }
 
-    public void GoToBattle(int stageIndex)
+    public void GoToBattle()
     {
         // どのステージに挑戦するか、などの情報を保持してシーンをロード
-        this.currentStageIndex = stageIndex;
-        SceneManager.LoadScene("Battle_Scene");
+        //this.currentStageIndex = stageIndex;
+        SceneManager.LoadScene("BattleScene");
     }
 }

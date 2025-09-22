@@ -158,16 +158,16 @@ public class SynthesisUIManager : MonoBehaviour
 
         // --- 実際にアイテムを消費してモンスターを入手する処理 ---
 
-        // 1. InventoryManagerからselectedIngredientsを消費
+        // 1. GameManager.Instance.PlayerDataからselectedIngredientsを消費
         foreach (var ingredient in selectedIngredients)
         {
             // 今回は1つずつ消費する想定
-            // InventoryManager.Instance.ownedOrgans[ingredient]--;
-            // if(InventoryManager.Instance.ownedOrgans[ingredient] <= 0)
+            // GameManager.Instance.PlayerData.ownedOrgans[ingredient]--;
+            // if(GameManager.Instance.PlayerData.ownedOrgans[ingredient] <= 0)
             // {
-            //     InventoryManager.Instance.ownedOrgans.Remove(ingredient);
+            //     GameManager.Instance.PlayerData.ownedOrgans.Remove(ingredient);
             // }
-            InventoryManager.Instance.RemoveOrgan(ingredient);
+            GameManager.Instance.PlayerData.RemoveOrgan(ingredient);
         }
 
         // 2. PlayerDataにcurrentRecipeResultを追加

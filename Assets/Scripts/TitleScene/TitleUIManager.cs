@@ -16,7 +16,9 @@ public class TitleUIManager : MonoBehaviour
         if (goToSynthesisButton != null)
         {
             // ボタンがクリックされたら、GameManagerのGoToSynthesisメソッドを呼び出す
-            goToSynthesisButton.onClick.AddListener(() => GameManager.Instance.GoToSynthesis());
+            //goToSynthesisButton.onClick.AddListener(() => GameManager.Instance.GoToSynthesis());
+            goToSynthesisButton.onClick.AddListener(GameManager.Instance.GoToLab);
+
         }
     }
 }
