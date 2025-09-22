@@ -19,8 +19,8 @@ public class GachaSystem : MonoBehaviour
     public List<GachaPool> premiumGachaPools;
     public int premiumGachaCost = 500;
 
-    // [Header("Dependencies")]
-    // public GachaDirector gachaDirector;
+    [Header("Dependencies")]
+    public GachaDirector gachaDirector;
 
     void Start()
     {
@@ -63,7 +63,7 @@ public class GachaSystem : MonoBehaviour
         }
 
         // 3. 演出ディレクターに結果リストを渡して演出を開始させる
-        // gachaDirector?.PlayRevealAnimation(results);
+        gachaDirector?.PlayRevealAnimation(results);
     }
 
     /// <summary>
