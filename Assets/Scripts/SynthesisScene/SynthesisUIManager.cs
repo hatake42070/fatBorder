@@ -181,7 +181,7 @@ public class SynthesisUIManager : MonoBehaviour
         // 合成後、選択をクリアしてUIを再更新
         selectedIngredients.Clear();
         UpdateSynthesisUI();
-        UpdateInventorySelection();
+        //UpdateInventorySelection();
     }
     private void UpdateInventorySelection()
     {

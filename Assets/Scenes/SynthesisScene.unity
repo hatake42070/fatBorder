@@ -1278,6 +1278,54 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: testOrgan.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8bf1a3e386c7b4f16899b1805c1a17b3, type: 2}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 99c226341409d4d56b24d4ee8bb81735, type: 2}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 246e53a6181764ba596c6d977613c35f, type: 2}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3a99bf8e7a57a4fc69485a562bad3cc0, type: 2}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 60065eee0faef4a64abc1e61be165c12, type: 2}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f395c94d60d5c4de2ac29ac9b291fabd, type: 2}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b47477f21088447769f36723a1ed1e51, type: 2}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4788f238efd9346418c342c09ffe7d12, type: 2}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[8]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f42f2d127c10a495ba6ad11c9cbbac84, type: 2}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 06a4b604c9584493588d275a3d782e42, type: 2}
+    - target: {fileID: -5953760870428627947, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
+      propertyPath: 'testOrgan.Array.data[10]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 41905865ef9474cdbbe7366dd476d048, type: 2}
     - target: {fileID: 5514121258907560936, guid: 1d26d4565d3f54845bd23fcffb369d62, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -2538,9 +2586,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dee4b50ffa8f49aeb224a15c9854b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testOrgan1: {fileID: 11400000, guid: 8bf1a3e386c7b4f16899b1805c1a17b3, type: 2}
-  testOrgan2: {fileID: 11400000, guid: 99c226341409d4d56b24d4ee8bb81735, type: 2}
-  testOrgan3: {fileID: 11400000, guid: 246e53a6181764ba596c6d977613c35f, type: 2}
+  testOrgan: []
+  inventorySystem: {fileID: 0}
 --- !u!4 &1998418628
 Transform:
   m_ObjectHideFlags: 0

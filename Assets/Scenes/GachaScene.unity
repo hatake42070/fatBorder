@@ -499,7 +499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000033512351}
+  m_AnchoredPosition: {x: 0, y: 0.00036534423}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &115919971
@@ -899,7 +899,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1510563404}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999243
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1369,8 +1369,15 @@ MonoBehaviour:
   premiumGachaButton: {fileID: 1470809657}
   normalGachaPools:
   - {fileID: 11400000, guid: 91614a2ef12224c8781cef902f10fc2d, type: 2}
+  - {fileID: 11400000, guid: 95394af3278324e7d974d29065e2159d, type: 2}
+  - {fileID: 11400000, guid: c5cddb415ecda4761b8ac454276e7f56, type: 2}
+  - {fileID: 11400000, guid: e2d47a0b9361e4eb5a254d4167074cd5, type: 2}
+  - {fileID: 11400000, guid: ba3201f44151a479f833c3d3e8551be9, type: 2}
   normalGachaCost: 100
-  premiumGachaPools: []
+  premiumGachaPools:
+  - {fileID: 11400000, guid: c5cddb415ecda4761b8ac454276e7f56, type: 2}
+  - {fileID: 11400000, guid: e2d47a0b9361e4eb5a254d4167074cd5, type: 2}
+  - {fileID: 11400000, guid: ba3201f44151a479f833c3d3e8551be9, type: 2}
   premiumGachaCost: 500
   gachaDirector: {fileID: 1946136190}
 --- !u!4 &562120433

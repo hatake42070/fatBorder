@@ -39,7 +39,7 @@ public class InventorySlotUI : MonoBehaviour
             // 1. 選択状態を反転させる
             isSelected = !isSelected;
             // 2. 自分の色を更新する
-            SetSelected(isSelected);
+            // SetSelected(isSelected);
             // 3. 自分の新しい状態を、外部に通知する
             OnSelectionChanged?.Invoke(assignedOrganData, isSelected);
         }

@@ -43,15 +43,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("ShopScene");
     }
     // モンスターインベントリシーン
-    public void GoToMonsterInventory()
+    public void GoToInventory()
     {
-        SceneManager.LoadScene("MonsterInventoryScene");
+        SceneManager.LoadScene("InventoryScene");
     }
     // 臓器インベントリシーン
-    public void GoToOrganInventory()
-    {
-        SceneManager.LoadScene("OrganInventoryScene");
-    }
+
     // 合成シーン
     public void GoToSynthesis()
     {
