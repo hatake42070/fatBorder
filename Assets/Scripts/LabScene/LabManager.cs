@@ -11,8 +11,7 @@ public class LabManager : MonoBehaviour
     public Button goToStudy;
     // ショップ
     public Button goToShop;
-    public Button goToMonsterInventry;
-    public Button goToOrganInventry;
+    public Button goToInventry;
 
     void Start()
     {
@@ -20,8 +19,7 @@ public class LabManager : MonoBehaviour
         goToSynthesis.onClick.AddListener(GameManager.Instance.GoToSynthesis);
         goToShop.onClick.AddListener(GameManager.Instance.GoToShop);
         goToStudy.onClick.AddListener(GameManager.Instance.GoToStudy);
-        goToMonsterInventry.onClick.AddListener(GameManager.Instance.GoToMonsterInventory);
-        goToOrganInventry.onClick.AddListener(GameManager.Instance.GoToOrganInventory);
+        goToInventry.onClick.AddListener(GameManager.Instance.GoToInventory);
     }
 
     // Update is called once per frame
