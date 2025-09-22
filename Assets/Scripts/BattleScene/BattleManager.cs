@@ -41,7 +41,7 @@ public class BattleManager : MonoBehaviour
         manaManager.StartTurn();
 
         // ターン開始時に1枚だけドロー
-        deckManager.DrawCard();
+        deckManager.DrawCardAtTurnStart();
 
         Log("プレイヤーのターン開始！");
     }

@@ -11,10 +11,6 @@ public class ManaManager : MonoBehaviour
 
     private int turnCount = 0; // 現在のターン数
 
-    void Start()
-    {
-        StartTurn(); // バトル開始時に1ターン目開始
-    }
 
     // ターン開始時
     public void StartTurn()
