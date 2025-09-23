@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
 
+/// <summary>
+/// GenericSlotUIからの放送を聞いて、各スロットの色を管理する
+/// </summary>
 public class InventorySystem : MonoBehaviour
 {
     [Header("UI Panels")]
@@ -27,7 +30,7 @@ public class InventorySystem : MonoBehaviour
     private List<GenericSlotUI> monsterSlots = new List<GenericSlotUI>();
     public int maxSlots;
     // 現在選択されているスロットのデータを保持する
-    private ScriptableObject selectedItem; 
+    private ScriptableObject selectedItem;
 
     void Start()
     {
@@ -103,7 +106,7 @@ public class InventorySystem : MonoBehaviour
             bool isSelected = dataInSlot != null && dataInSlot == selectedItem;
             slot.SetSelected(isSelected);
         }
-    }    
+    }
 
     public void ShowOrganPanel()
     {
@@ -168,9 +171,4 @@ public class InventorySystem : MonoBehaviour
             }
         }
     }
-    
-    // private void ShowDetail(ScriptableObject data)
-    // {
-    //     // クリックされたアイテムの詳細をdetailPanelに表示する処理
-    // }
 }
