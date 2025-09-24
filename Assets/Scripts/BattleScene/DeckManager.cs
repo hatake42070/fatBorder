@@ -12,14 +12,6 @@ public class DeckManager : MonoBehaviour
     [SerializeField] private int initialHandSize = 5; // ゲーム開始時の手札枚数
 
     /// <summary>
-    /// デッキにカードを追加（初期設定用）
-    /// </summary>
-    public void AddCardToDeck(Card card)
-    {
-        deck.Add(card);
-    }
-
-    /// <summary>
     /// ゲーム開始時に初期手札を引くためのメソッド
     /// </summary>
     public void DrawInitialHand()
