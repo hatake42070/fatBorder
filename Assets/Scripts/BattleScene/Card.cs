@@ -15,4 +15,6 @@ public class Card
     public int GetPower() => data.power;
     public CardType GetCardType() => data.cardType;
     public string GetDescription() => data.description;
+    public Sprite GetSprite() => data.cardImage;
+
 }
