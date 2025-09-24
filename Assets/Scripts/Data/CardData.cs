@@ -15,6 +15,9 @@ public class CardData : ScriptableObject
     [Header("UI用情報")]
     [TextArea]
     public string description;       // 説明文（UI表示用）
+
+    [Header("カード画像")]
+    public Sprite cardImage;         // カードの絵
 }
 
 public enum CardType
