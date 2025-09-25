@@ -7,7 +7,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private DeckManager deckManager;
     [SerializeField] private ManaManager manaManager;
     [SerializeField] private HandAreaManager handAreaManager; // HandAreaManagerの参照
-    [SerializeField] private Sprite defaultCardSprite; // カード画像
+    [SerializeField] private Sprite defaultCardSprite; // カード画像表示用(一時的)
 
 
     [Header("Player & Enemy HP")]
@@ -23,7 +23,7 @@ public class BattleManager : MonoBehaviour
 
     private bool playerTurn = true;
 
-    // Awake()は、今のところカードUI表示のために設定してある(おそらく後に消す)
+    // Awake()は、今のところカードUI表示テストのために設定してある(おそらく後に消す)
     void Awake()
     {
         for (int i = 0; i < 10; i++)
@@ -33,9 +33,9 @@ public class BattleManager : MonoBehaviour
             cardData.manaCost = 2;
             cardData.cardType = CardType.Attack;
             cardData.power = 5;
-             cardData.cardImage = defaultCardSprite;
+            cardData.cardImage = defaultCardSprite;
 
-            deckManager.AddCardToDeck(new Card(cardData));
+            deckManager.AddCardToDeck(new Card(cardData)); // 本来なら、deckManager.drowInitialHand()
         }
 
         deckManager.ShuffleDeck();
