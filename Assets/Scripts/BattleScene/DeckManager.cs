@@ -12,7 +12,7 @@ public class DeckManager : MonoBehaviour
     [SerializeField] private int initialHandSize = 5; // ゲーム開始時の手札枚数
 
     /// <summary>
-    /// デッキにカードを追加（初期設定用）
+    /// デッキにカードを追加（これは、カードUIを表示するテスト用に作ったものであり、本来は、DrawIH()関数を使うこと）
     /// </summary>
     public void AddCardToDeck(Card card)
     {
