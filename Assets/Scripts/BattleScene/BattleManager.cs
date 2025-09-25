@@ -6,13 +6,16 @@ public class BattleManager : MonoBehaviour
     [Header("Managers")]
     [SerializeField] private DeckManager deckManager;
     [SerializeField] private ManaManager manaManager;
+    [SerializeField] private HandAreaManager handAreaManager; // HandAreaManagerの参照
+    [SerializeField] private Sprite defaultCardSprite; // カード画像
+
 
     [Header("Player & Enemy HP")]
     [SerializeField] private int playerHP = 30;
     [SerializeField] private int enemyHP = 30;
     [SerializeField] private TMP_Text playerHPText;
     [SerializeField] private TMP_Text enemyHPText;
-    [SerializeField] private HandAreaManager handAreaManager; // HandAreaManagerの参照
+    
 
 
     [Header("UI")]
@@ -20,12 +23,33 @@ public class BattleManager : MonoBehaviour
 
     private bool playerTurn = true;
 
+    // Awake()は、今のところカードUI表示のために設定してある(おそらく後に消す)
+    void Awake()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            CardData cardData = ScriptableObject.CreateInstance<CardData>();
+            cardData.cardName = "攻撃カード";
+            cardData.manaCost = 2;
+            cardData.cardType = CardType.Attack;
+            cardData.power = 5;
+             cardData.cardImage = defaultCardSprite;
+
+            deckManager.AddCardToDeck(new Card(cardData));
+        }
+
+        deckManager.ShuffleDeck();
+    }
+    
     void Start()
     {
         // ゲーム開始時の手札5枚ドロー
         deckManager.DrawInitialHand();
 
+        // handAreaManager.UpdateHandUI();
+
         UpdateHPUI();
+
         Log("バトル開始！");
 
         // 1ターン目開始
