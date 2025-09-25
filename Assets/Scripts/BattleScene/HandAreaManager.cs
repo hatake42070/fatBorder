@@ -34,11 +34,11 @@ public class HandAreaManager : MonoBehaviour
 
             // マナコスト
             TMP_Text manaText = cardObj.transform.Find("ManaCostText")?.GetComponent<TMP_Text>();
-            if (manaText) manaText.text = cardData.GetManaCost().ToString();
+            if (manaText) manaText.text = "Cost：" + cardData.GetManaCost().ToString();
 
             // 攻撃力
             TMP_Text powerText = cardObj.transform.Find("PowerText")?.GetComponent<TMP_Text>();
-            if (powerText) powerText.text = cardData.GetPower().ToString();
+            if (powerText) powerText.text = "Att" + cardData.GetPower().ToString();
 
             // 画像
             Image cardImage = cardObj.transform.Find("CardImage")?.GetComponent<Image>();

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Card
 {
     private CardData data;       // 元データへの参照
@@ -16,6 +18,6 @@ public class Card
     public Sprite GetSprite() => data.cardImage;
     public CardType GetCardType() => data.cardType;
     public string GetDescription() => data.description;
-    
+
 
 }
