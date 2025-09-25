@@ -13,8 +13,9 @@ public class Card
     public string GetName() => data.cardName;
     public int GetManaCost() => data.manaCost;
     public int GetPower() => data.power;
+    public Sprite GetSprite() => data.cardImage;
     public CardType GetCardType() => data.cardType;
     public string GetDescription() => data.description;
-    public Sprite GetSprite() => data.cardImage;
+    
 
 }
