@@ -23,6 +23,14 @@ public class DeckManager : MonoBehaviour
     }
 
     /// <summary>
+    /// ターン開始時に1枚だけドロー
+    /// </summary>
+    public void DrawCardAtTurnStart()
+    {
+        DrawCard();
+    }
+
+    /// <summary>
     /// デッキから1枚ドロー
     /// </summary>
     public Card DrawCard()

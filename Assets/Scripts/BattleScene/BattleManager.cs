@@ -12,8 +12,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private int enemyHP = 30;
     [SerializeField] private TMP_Text playerHPText;
     [SerializeField] private TMP_Text enemyHPText;
-    [SerializeField] private HandAreaManager handAreaManager; // HandAreaManagerの参照
-
 
     [Header("UI")]
     [SerializeField] private TMP_Text logText; // 戦闘ログ
@@ -45,9 +43,6 @@ public class BattleManager : MonoBehaviour
         // ターン開始時に1枚だけドロー
         deckManager.DrawCard();
 
-        // 手札UIを更新
-        handAreaManager.UpdateHandUI();
-
         Log("プレイヤーのターン開始！");
     }
 
@@ -72,14 +67,11 @@ public class BattleManager : MonoBehaviour
                     playerHP += card.GetPower();
                     Log($"プレイヤーが{card.GetPower()}回復！");
                     break;
-                    // 他のカードタイプも追加可能
-                    //
-                    //
+                // 他のカードタイプも追加可能
             }
 
             UpdateHPUI();
-            deckManager.DiscardCard(card);  // 使用したカードは墓地へ
-            handAreaManager.UpdateHandUI(); // 手札UIを更新
+            deckManager.DiscardCard(card); // 使用したカードは墓地へ
 
             // 敵が倒れたら勝利
             if (enemyHP <= 0)

@@ -27,10 +27,9 @@ public class HandAreaManager : MonoBehaviour
             GameObject cardObj = Instantiate(cardPrefab, handArea);
 
             // カード名
-            // ? は null 条件演算子。参照がnullじゃなければアクセスして、nullなら処理をスキップする
-            // TMP_Text型の構造体の.text変数にテキストを代入すると、それをUI表示してくれる
+            // ? は null 条件演算子。簡単に言うと、参照がnullじゃなければアクセスして、nullなら処理をスキップする
             TMP_Text nameText = cardObj.transform.Find("NameText")?.GetComponent<TMP_Text>();
-            if (nameText) nameText.text = cardData.GetName();
+            if (nameText) nameText.text = cardData.GetCardName();
 
             // マナコスト
             TMP_Text manaText = cardObj.transform.Find("ManaCostText")?.GetComponent<TMP_Text>();
