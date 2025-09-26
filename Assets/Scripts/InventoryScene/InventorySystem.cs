@@ -22,6 +22,10 @@ public class InventorySystem : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject genericSlotPrefab;
 
+    [Header("Tab Colors")]
+    [SerializeField] private Color selectedColor = Color.yellow;
+    [SerializeField] private Color deselectedColor = Color.white;
+
     // 生成したスロットの参照を保存しておくリスト
     private List<GenericSlotUI> organSlots = new List<GenericSlotUI>();
     private List<GenericSlotUI> monsterSlots = new List<GenericSlotUI>();
@@ -56,14 +60,12 @@ public class InventorySystem : MonoBehaviour
     private void OnEnable()
     {
         // 詳細表示などのためにクリックイベントを購読
-        // GenericSlotUI.OnSlotClicked += ShowDetail;
         // クリックイベントを購読
         GenericSlotUI.OnSlotClicked += HandleSlotClick;
     }
 
     private void OnDisable()
     {
-        // GenericSlotUI.OnSlotClicked -= ShowDetail;
         // 購読を解除
         GenericSlotUI.OnSlotClicked -= HandleSlotClick;
     }
@@ -103,7 +105,14 @@ public class InventorySystem : MonoBehaviour
             bool isSelected = dataInSlot != null && dataInSlot == selectedItem;
             slot.SetSelected(isSelected);
         }
-    }    
+    }
+
+    private void UpdateTabColors()
+    {
+        // organPanelが表示されているかどうかに応じて色を設定
+        organTabButton.GetComponent<Image>().color = organPanel.activeSelf ? selectedColor : deselectedColor;
+        monsterTabButton.GetComponent<Image>().color = monsterPanel.activeSelf ? selectedColor : deselectedColor;
+    }
 
     public void ShowOrganPanel()
     {
@@ -111,6 +120,7 @@ public class InventorySystem : MonoBehaviour
         organPanel.SetActive(true);
         monsterPanel.SetActive(false);
         PopulateOrganGrid();
+        UpdateTabColors();
     }
 
     public void ShowMonsterPanel()
@@ -119,6 +129,7 @@ public class InventorySystem : MonoBehaviour
         organPanel.SetActive(false);
         monsterPanel.SetActive(true);
         PopulateMonsterGrid();
+        UpdateTabColors();
     }
 
     // 臓器グリッドにデータを表示
