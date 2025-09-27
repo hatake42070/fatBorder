@@ -9,6 +9,7 @@ public class HandAreaManager : MonoBehaviour
     [SerializeField] private DeckManager deckManager;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform handArea;
+    [SerializeField] private BattleManager battleManager; // カードプレイ処理に必要
 
     private readonly List<GameObject> spawnedCards = new List<GameObject>();
 
@@ -43,6 +44,13 @@ public class HandAreaManager : MonoBehaviour
             // 画像
             Image cardImage = cardObj.transform.Find("CardImage")?.GetComponent<Image>();
             if (cardImage) cardImage.sprite = cardData.GetSprite();
+
+            // CardUI_DragDropをセットアップ
+            var dragDrop = cardObj.GetComponent<CardUI_DragDrop>();
+            if (dragDrop != null)
+            {
+                dragDrop.Setup(cardData, battleManager);
+            }
 
             spawnedCards.Add(cardObj);
         }
