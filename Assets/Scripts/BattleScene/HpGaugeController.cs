@@ -7,9 +7,9 @@ public class HpGaugeController : MonoBehaviour
     [SerializeField] private GameObject gauge;
     // 猶予ゲージ(裏のゲージ)
     [SerializeField] private GameObject graceGauge;
-
     // 最大HP
     [SerializeField] private int maxHP;
+    
     // HP1あたりの幅
     private float perHP;
     // 体力ゲージが減った後裏ゲージが減るまでの待機時間
