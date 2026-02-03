@@ -26,6 +26,6 @@ public class BattleLogManager : MonoBehaviour
             logQueue.Dequeue();
         }
 
-        logText.text = string.Join("\n\n", logQueue) + "<br>";
+        logText.text = string.Join("\n\n", logQueue);
     }
 }
