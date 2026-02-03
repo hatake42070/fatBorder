@@ -17,7 +17,6 @@ public class BattleManager : MonoBehaviour
 
 
     [Header("UI")]
-    [SerializeField] private TMP_Text logText; // 戦闘ログ
     [SerializeField] private TMP_Text playerHPText;
     [SerializeField] private TMP_Text enemyHPText;
 
@@ -258,10 +257,8 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     private void Log(string message)
     {
-        if (logText != null)
-        {
-            logText.text += message + "\n";
-        }
+
+        BattleLogManager.Instance.AddLog(message);
         Debug.Log(message);
     }
 }
